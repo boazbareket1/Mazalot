@@ -20,20 +20,20 @@
 <link href="https://fonts.googleapis.com/css2?family=David+Libre:wght@400;700&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:        #0f1118;
-    --bg-card:   #181b25;
-    --bg-card-2: #1e2130;
-    --edge:      rgba(255,255,255,.07);
-    --edge-warm: rgba(220,180,100,.22);
-    --amber:     #d4a043;
+    --bg:        #1c2236;
+    --bg-card:   #283049;
+    --bg-card-2: #323c5a;
+    --edge:      rgba(255,255,255,.18);
+    --edge-warm: rgba(235,195,110,.45);
+    --amber:     #f0bc55;
     --amber-dim: #9a6e26;
     --amber-glow:rgba(212,160,67,.18);
     --sky:       #5b8fc4;
     --sky-dim:   rgba(91,143,196,.15);
-    --ink:       #ede9e0;
-    --ink-mid:   #9a9791;
-    --ink-dim:   #5c5a56;
-    --good:      #5c8f60;
+    --ink:       #fbf8f1;
+    --ink-mid:   #d3d0c8;
+    --ink-dim:   #a9a69e;
+    --good:      #7bc080;
     --bad:       #8f5c5c;
     --r-card:    20px;
     --r-sm:      12px;
@@ -80,7 +80,7 @@
     content:''; position:absolute; bottom:-1px; left:15%; right:15%; height:2px;
     background:var(--amber); border-radius:2px 2px 0 0;
   }
-  .tab:disabled{opacity:.3; cursor:default;}
+  .tab:disabled{opacity:.5; cursor:default;}
 
   /* ══ Intro screen ══ */
   .intro-wrap{
@@ -106,12 +106,38 @@
     font-size:1rem; font-family:var(--font-b); text-align:center; transition:.2s;
   }
   .date-input:hover{border-color:var(--edge-warm);}
+  .love-card{display:flex; gap:16px; align-items:center; background:var(--bg-card); border:1px solid var(--edge-warm); border-radius:var(--r-card); padding:18px; margin-bottom:16px;}
+  .love-sym{font-size:2.6rem; color:var(--amber); line-height:1;}
+  .love-rows p{font-size:.86rem; line-height:1.7; color:var(--ink-mid);}
+  .love-rows strong, .match-two strong, .rec-need strong{color:var(--ink);}
+  .mode-row{display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap;}
+  .mode-btn{flex:1; min-width:150px; background:var(--bg-card); border:1px solid var(--edge); color:var(--ink-mid); padding:13px 10px; border-radius:var(--r-sm); font-size:.88rem; font-weight:700; transition:.2s;}
+  .mode-btn.on, .mode-btn:hover{border-color:var(--amber); color:var(--amber);}
+  .love-panel{background:var(--bg-card); border:1px solid var(--edge); border-radius:var(--r-card); padding:18px; margin-bottom:16px;}
+  .lp-h{font-weight:700; margin-bottom:12px; font-size:.95rem;}
+  .lp-or{font-size:.78rem; color:var(--ink-mid); margin:16px 0 10px;}
+  .sign-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(92px,1fr)); gap:8px;}
+  .sign-chip{display:flex; align-items:center; justify-content:center; gap:6px; background:var(--bg-card-2); border:1px solid var(--edge); color:var(--ink-mid); padding:9px 6px; border-radius:var(--r-sm); font-size:.82rem; font-weight:600; transition:.2s;}
+  .sign-chip.on, button.sign-chip:hover{border-color:var(--amber); color:var(--amber);}
+  .sign-chip.static{opacity:.8;}
+  .sc-sym{font-size:1.05rem;}
+  .match-result, .rec-card{background:var(--bg-card-2); border:1px solid var(--edge-warm); border-radius:var(--r-sm); padding:16px; margin-top:16px; text-align:center;}
+  .rec-card{text-align:right; margin-top:10px;}
+  .match-result p, .rec-card p{font-size:.84rem; line-height:1.7; color:var(--ink-mid); margin-top:8px;}
+  .match-pair{display:flex; justify-content:center; align-items:center; gap:14px; font-size:1.1rem; font-weight:700;}
+  .heart{color:#d98a8a;}
+  .match-stars, .rec-stars{color:var(--amber); letter-spacing:2px; margin-top:6px;}
+  .match-kind{font-size:.8rem; font-weight:700; color:var(--amber); margin-top:4px;}
+  .rec-top{display:flex; justify-content:space-between; align-items:center;}
+  .rec-name{font-size:1rem; font-weight:700;}
+  .match-two{text-align:right; font-size:.82rem; line-height:1.7; color:var(--ink-mid); margin-top:12px; display:grid; gap:6px;}
+  .love-note{font-size:.72rem; color:var(--ink-dim); line-height:1.6; text-align:center; margin:6px 0 10px;}
   .date-fields{display:flex; gap:10px;}
   .date-field{flex:1; min-width:0; display:flex; flex-direction:column; gap:6px;}
   .date-field.wide{flex:1.5;}
   .date-field-label{font-size:.7rem; font-weight:700; color:var(--ink-dim); text-align:center;}
   .date-fields .date-input{padding:13px 4px; font-size:1.15rem; letter-spacing:1px;}
-  .date-fields .date-input::placeholder{color:var(--ink-dim); opacity:.55;}
+  .date-fields .date-input::placeholder{color:var(--ink-dim); opacity:.7;}
   .date-error{font-size:.76rem; color:#d98a8a; line-height:1.55; margin-top:12px; text-align:center;}
   .big-btn{
     display:block; width:100%; margin-top:14px;
@@ -119,7 +145,7 @@
     padding:15px; border-radius:var(--r-sm); font-weight:800; font-size:.95rem; transition:.2s;
   }
   .big-btn:hover{filter:brightness(1.08);}
-  .big-btn:disabled{opacity:.45; cursor:default;}
+  .big-btn:disabled{opacity:.6; cursor:default;}
 
   /* ══ Reveal screen ══ */
   .reveal-wrap{padding-top:40px; text-align:center;}
@@ -407,6 +433,7 @@
     border:1px solid var(--edge-warm); border-radius:var(--r-card);
     color:var(--amber); font-weight:700; font-size:.88rem; transition:.2s;
   }
+  .wa-btn{display:block; text-align:center; text-decoration:none; margin-top:10px;}
   .share-btn:hover{background:var(--amber-glow); border-color:var(--amber);}
   .share-toast{
     position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
@@ -1094,17 +1121,17 @@ function BirthDateFields({ value, onChange, onSubmit, canSubmit }) {
     <div className="date-fields" dir="ltr" role="group" aria-label="תאריך לידה">
       <div className="date-field">
         <span className="date-field-label">יום</span>
-        <input {...common} className="date-input" placeholder="16" maxLength={2}
+        <input {...common} className="date-input" placeholder="dd" maxLength={2}
           value={value.d} onChange={set("d", 2, mRef)} aria-label="יום בחודש"/>
       </div>
       <div className="date-field">
         <span className="date-field-label">חודש</span>
-        <input {...common} ref={mRef} className="date-input" placeholder="9" maxLength={2}
+        <input {...common} ref={mRef} className="date-input" placeholder="mm" maxLength={2}
           value={value.m} onChange={set("m", 2, yRef)} aria-label="חודש"/>
       </div>
       <div className="date-field wide">
         <span className="date-field-label">שנה</span>
-        <input {...common} ref={yRef} className="date-input" placeholder="1967" maxLength={4}
+        <input {...common} ref={yRef} className="date-input" placeholder="yyyy" maxLength={4}
           value={value.y} onChange={set("y", 4, null)} aria-label="שנת לידה"/>
       </div>
     </div>
@@ -1505,6 +1532,10 @@ function Portrait({ zodiac, profile }) {
       <button className="share-btn" onClick={handleShare}>
         ✦ שלח/י לעצמי את הסיכום
       </button>
+      <a className="share-btn wa-btn" target="_blank" rel="noopener noreferrer"
+        href={"https://wa.me/?text=" + encodeURIComponent(buildShareText())}>
+        שלח/י בוואטסאפ
+      </a>
     </div>
   );
 }
@@ -1512,7 +1543,153 @@ function Portrait({ zodiac, profile }) {
 /* ═══════════════════════════════════════
    9. App
    ═══════════════════════════════════════ */
-const TABS = ["גילוי המזל", "תכונות שלי", "הפרופיל שלי"];
+/* ═══════════════════════════════════════
+   זוגיות — סגנון אהבה לכל מזל + התאמה לפי מרחק בין המזלות (היבטים)
+   ═══════════════════════════════════════ */
+const LOVE = {
+  aries:{style:"אוהב/ת בלהט, יוזם/ת וישיר/ה", needs:"הרפתקה, כנות ושותף/ה שלא מפחד/ת מעוצמה", watch:"חוסר סבלנות והצורך לנצח בוויכוח"},
+  taurus:{style:"אוהב/ת לאט, בנאמנות ובמגע חושי", needs:"יציבות, ביטחון ורוגע", watch:"עקשנות והיצמדות לשגרה"},
+  gemini:{style:"אוהב/ת דרך שיחה, סקרנות והומור", needs:"גיוון, חופש ומחשבה משותפת", watch:"שינויי מצב רוח וקושי להתחייב"},
+  cancer:{style:"אוהב/ת בעומק, מגן/ה ומטפח/ת", needs:"ביטחון רגשי, בית וקרבה", watch:"נעלבות ונסיגה אל הקונכייה"},
+  leo:{style:"אוהב/ת בנדיבות, בחום ובגדול", needs:"הערכה, שותפות גאה ומחמאות כנות", watch:"גאווה ורגישות לביקורת"},
+  virgo:{style:"אוהב/ת דרך מעשים קטנים ודאגה מעשית", needs:"אמינות, סדר ושיפור הדדי", watch:"ביקורתיות יתר ודאגנות"},
+  libra:{style:"אוהב/ת בהרמוניה, באסתטיקה ובשותפות", needs:"איזון, הוגנות ושיח רגוע", watch:"הססנות והימנעות מעימות"},
+  scorpio:{style:"אוהב/ת בעוצמה, בעומק ובנאמנות מלאה", needs:"אמון מלא, כנות וקרבה אמיתית", watch:"קנאה, שליטה והסתגרות"},
+  sagittarius:{style:"אוהב/ת בחופשיות, באופטימיות ובהרפתקה", needs:"חופש, משמעות ושותף/ה לדרך", watch:"בוטות ופחד מכבלים"},
+  capricorn:{style:"אוהב/ת באחריות, בהתמדה ובבניית עתיד", needs:"כבוד, מטרות משותפות ויציבות", watch:"קשיחות והעדפת עשייה על פני רגש"},
+  aquarius:{style:"אוהב/ת כחברות עמוקה, עצמאית ומקורית", needs:"מרחב, חברות ורעיונות", watch:"ריחוק רגשי"},
+  pisces:{style:"אוהב/ת ברגישות, בדמיון וברומנטיקה", needs:"חיבור נפשי, אמפתיה ורוך", watch:"אידיאליזציה וקושי בגבולות"},
+};
+
+const ASPECTS = {
+  0:{name:"אותו מזל", score:3, text:"שניכם רואים את עצמכם במראה: הבנה מיידית של הצרכים, אבל גם הקושי להתמודד עם הצדדים הפחות נוחים שלכם, כשהם מגיעים מהצד השני."},
+  1:{name:"מזלות שכנים", score:2, text:"שונים כמעט בכל דבר, ולכן יש הרבה מה ללמוד זה מזה. הקשר דורש סקרנות ונכונות להבין עולם אחר."},
+  2:{name:"תמיכה והשראה", score:4, text:"מזלות מקבילים שמשלימים זה את זה. קל לכם לעודד, לשתף פעולה ולהנות יחד. הקשר זורם בלי מאמץ גדול."},
+  3:{name:"חיכוך מניע", score:2, text:"הקשר מלא מתח יצירתי: אתם מאתגרים זה את זה ודוחפים לצמיחה. הוא מצליח כשאפשר להפוך ויכוח לשיחה ולא למאבק."},
+  4:{name:"זרימה טבעית", score:5, text:"אותו יסוד ואותו שפה פנימית. הבנה כמעט בלי מילים, ערכים דומים ותחושת בית. זו ההתאמה הקלאסית והחזקה ביותר."},
+  5:{name:"התאמה בעבודה", score:2, text:"צרכים וקצבים שונים, והקשר דורש התאמות קטנות ומתמשכות. כשמדברים על מה שחסר, אפשר לבנות איזון טוב."},
+  6:{name:"משיכה מנוגדת", score:4, text:"מזלות מנוגדים שמשלימים זה את זה. משיכה חזקה ותחושה של חלק חסר שנמצא אצל האחר. האתגר: לא להפוך את ההבדל לעימות."},
+};
+
+function aspectOf(aId, bId) {
+  const ia = ZODIAC_DATA.findIndex(z => z.id === aId);
+  const ib = ZODIAC_DATA.findIndex(z => z.id === bId);
+  const diff = Math.abs(ia - ib);
+  const dist = Math.min(diff, 12 - diff);
+  return { dist, ...ASPECTS[dist] };
+}
+
+function SignChip({ z, selected, onClick }) {
+  return (
+    <button className={`sign-chip ${selected ? "on" : ""}`} onClick={onClick} aria-pressed={selected}>
+      <span className="sc-sym">{z.symbol}</span><span>{z.name}</span>
+    </button>
+  );
+}
+
+function Couple({ zodiac }) {
+  const [mode, setMode] = useState(null); // "have" | "seek"
+  const [partnerId, setPartnerId] = useState(null);
+  const [pbd, setPbd] = useState({ d: "", m: "", y: "" });
+  const pb = parseBirth(pbd);
+  const onDate = (v) => {
+    setPbd(v);
+    const r = parseBirth(v);
+    if (r.iso) { const z = zodiacForDate(r.iso); if (z) setPartnerId(z.id); }
+  };
+  const me = LOVE[zodiac.id];
+  const partner = partnerId ? zodiacIndex[partnerId] : null;
+  const asp = partner ? aspectOf(zodiac.id, partner.id) : null;
+  const ranked = ZODIAC_DATA
+    .filter(z => true)
+    .map(z => ({ z, a: aspectOf(zodiac.id, z.id) }))
+    .sort((x, y) => y.a.score - x.a.score || x.a.dist - y.a.dist);
+  const best = ranked.filter(r => r.a.score >= 4);
+  const growth = ranked.filter(r => r.a.score < 4);
+  const stars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
+
+  return (
+    <div>
+      <div className="section-head">
+        <h3>זוגיות · מזל {zodiac.name}</h3>
+        <p>הסגנון שלך באהבה, והתאמה לבן/בת זוג</p>
+      </div>
+
+      <div className="love-card">
+        <div className="love-sym">{zodiac.symbol}</div>
+        <div className="love-rows">
+          <p><strong>איך את/ה אוהב/ת:</strong> {me.style}</p>
+          <p><strong>מה את/ה צריך/ה:</strong> {me.needs}</p>
+          <p><strong>כדאי לשים לב:</strong> {me.watch}</p>
+        </div>
+      </div>
+
+      <div className="mode-row">
+        <button className={`mode-btn ${mode === "have" ? "on" : ""}`} onClick={() => setMode("have")}>💞 יש לי בן/בת זוג</button>
+        <button className={`mode-btn ${mode === "seek" ? "on" : ""}`} onClick={() => setMode("seek")}>🔍 אין לי, מי מתאים לי?</button>
+      </div>
+
+      {mode === "have" && (
+        <div className="love-panel">
+          <p className="lp-h">מה המזל של בן/בת הזוג?</p>
+          <div className="sign-grid">
+            {ZODIAC_DATA.map(z => (
+              <SignChip key={z.id} z={z} selected={partnerId === z.id} onClick={() => setPartnerId(z.id)}/>
+            ))}
+          </div>
+          <p className="lp-or">או הזן/י את תאריך הלידה שלו/ה:</p>
+          <BirthDateFields value={pbd} onChange={onDate} onSubmit={() => {}} canSubmit={false}/>
+          {pb.error && <p className="date-error" role="alert">{pb.error}</p>}
+
+          {partner && (
+            <div className="match-result">
+              <div className="match-pair">
+                <span>{zodiac.symbol} {zodiac.name}</span><span className="heart">♥</span><span>{partner.symbol} {partner.name}</span>
+              </div>
+              <div className="match-stars" aria-label={`התאמה ${asp.score} מתוך 5`}>{stars(asp.score)}</div>
+              <div className="match-kind">{asp.name}</div>
+              <p>{asp.text}</p>
+              {ELEMENT_EMOJI[zodiac.element] && (
+                <p className="match-el">{ELEMENT_EMOJI[zodiac.element]} {zodiac.element} ו-{ELEMENT_EMOJI[partner.element]} {partner.element}{zodiac.element === partner.element ? " — אותו יסוד, שפה משותפת." : "."}</p>
+              )}
+              <div className="match-two">
+                <div><strong>מה {partner.name} צריך/ה:</strong> {LOVE[partner.id].needs}</div>
+                <div><strong>כדאי לדעת:</strong> {LOVE[partner.id].watch}</div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {mode === "seek" && (
+        <div className="love-panel">
+          <p className="lp-h">המזלות שהכי מתאימים למזל {zodiac.name}</p>
+          {best.map(({ z, a }) => (
+            <div className="rec-card" key={z.id}>
+              <div className="rec-top">
+                <span className="rec-name">{z.symbol} {z.name}</span>
+                <span className="rec-stars">{stars(a.score)}</span>
+              </div>
+              <div className="match-kind">{a.name} · {ELEMENT_EMOJI[z.element]} {z.element}</div>
+              <p>{a.text}</p>
+              <p className="rec-need"><strong>מה {z.name} מחפש/ת:</strong> {LOVE[z.id].needs}</p>
+            </div>
+          ))}
+          <p className="lp-or">מזלות שדורשים יותר עבודה, אבל יכולים להצמיח:</p>
+          <div className="sign-grid">
+            {growth.map(({ z }) => (
+              <span className="sign-chip static" key={z.id}><span className="sc-sym">{z.symbol}</span><span>{z.name}</span></span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <p className="love-note">ההתאמה מבוססת על היחס בין המזלות באסטרולוגיה הקלאסית. זה כלי להרהור והשראה; מה שקובע הוא האדם עצמו.</p>
+    </div>
+  );
+}
+
+const TABS = ["גילוי המזל", "תכונות שלי", "הפרופיל שלי", "זוגיות"];
 
 function App() {
   const [bd, setBd] = useState({ d: "", m: "", y: "" });
@@ -1530,7 +1707,9 @@ function App() {
   });
 
   const zodiac = profile.zodiacId ? zodiacIndex[profile.zodiacId] : null;
-  const discovered = !!zodiac;
+  const [started, setStarted] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
+  const discovered = !!zodiac && started;
 
   useEffect(() => { saveProfile(profile); }, [profile]);
 
@@ -1539,6 +1718,7 @@ function App() {
     const z = zodiacForDate(birth.iso);
     if (!z) return;
     setProfile(p => ({ ...p, birthdate: birth.iso, zodiacId: z.id }));
+    setStarted(true);
     setTab(1);
   };
 
@@ -1573,7 +1753,9 @@ function App() {
     setProfile(p => ({ ...p, customTraits: (p.customTraits || []).filter(c => c.id !== id) }));
 
   const reset = () => {
-    if (!window.confirm("למחוק את כל הפרופיל ולהתחיל מחדש?")) return;
+    if (!confirmReset) { setConfirmReset(true); setTimeout(() => setConfirmReset(false), 4000); return; }
+    setConfirmReset(false);
+    setStarted(false);
     setProfile({ birthdate: null, zodiacId: null, ratings: {}, importance: {}, notes: {}, customTraits: [] });
     setBd({ d: "", m: "", y: "" });
     setTab(0);
@@ -1588,24 +1770,24 @@ function App() {
     <div className="shell">
       <header className="top">
         <div className="top-brand">
-          <span className="sym">{zodiac ? zodiac.symbol : "✦"}</span>
+          <span className="sym">{discovered ? zodiac.symbol : "✦"}</span>
           <div>
             <h1>מזלות</h1>
             <p>מסע גילוי עצמי דרך תכונות האופי</p>
           </div>
         </div>
         <div className="top-right">
-          {discovered && <button className="ghost" onClick={reset}>התחל מחדש</button>}
+          {zodiac && <button className="ghost" onClick={reset}>{confirmReset ? "בטוח/ה? לחץ/י שוב למחיקה" : "התחל מחדש"}</button>}
         </div>
       </header>
 
       <div className="page">
-        {discovered && (
+        {(
           <div className="tab-bar">
             {TABS.map((t, i) => (
               <button key={t} className={`tab ${tab === i ? "active" : ""}`}
-                onClick={() => setTab(i)}
-                disabled={i === 2 && Object.keys(profile.ratings).length === 0}>
+                onClick={() => { if (zodiac) setStarted(true); setTab(i); }}
+                disabled={(i === 2 && Object.keys(profile.ratings).length === 0) || (!zodiac && i > 0)}>
                 {t}
               </button>
             ))}
@@ -1625,6 +1807,11 @@ function App() {
               <button className="big-btn" onClick={handleDiscover} disabled={!birth.iso}>
                 גלה/י את המזל שלי ←
               </button>
+              {zodiac && (
+                <button className="ghost" style={{marginTop:12, width:"100%"}} onClick={() => { setStarted(true); setTab(1); }}>
+                  המשך מהפרופיל השמור שלי (מזל {zodiac.name})
+                </button>
+              )}
             </div>
           </div>
         )}
@@ -1703,6 +1890,11 @@ function App() {
         {/* ── Tab 2: Portrait ── */}
         {discovered && tab === 2 && (
           <Portrait zodiac={zodiac} profile={profile}/>
+        )}
+
+        {/* ── Tab 3: Couple ── */}
+        {discovered && tab === 3 && (
+          <Couple zodiac={zodiac}/>
         )}
       </div>
 
